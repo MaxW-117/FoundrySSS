@@ -1,0 +1,28 @@
+{
+    "_id": "6l7e7CHQLESlI57U",
+    "img": "systems/pf2e/icons/actions/FreeAction.webp",
+    "name": "Improved Push",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedPush]</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Bestiary"
+        },
+        "rules": [],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "action"
+}

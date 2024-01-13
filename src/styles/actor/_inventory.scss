@@ -1,0 +1,474 @@
+.inventory {
+    --border-color: var(--alt);
+
+    .inventory-list,
+    ul.items {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 100%;
+
+        .item-name {
+            align-items: center;
+            display: flex;
+            flex: 2;
+            font-weight: 500;
+            gap: 0.25rem;
+            padding-right: 0.25rem;
+        }
+
+        .price,
+        .quantity,
+        .bulk,
+        .item-controls {
+            align-items: center;
+            display: flex;
+        }
+
+        .price {
+            flex-basis: 4rem;
+        }
+
+        .quantity {
+            flex-basis: 4.25rem;
+        }
+
+        .bulk {
+            flex-basis: 2.5rem;
+        }
+
+        .item-controls {
+            flex-basis: 5.625rem;
+            font-size: var(--font-size-12);
+            gap: 1px;
+            justify-content: end;
+        }
+    }
+
+    .inventory-list {
+        overflow: hidden scroll;
+        height: calc(100% - 60px);
+        padding-right: 0.15rem;
+    }
+
+    .inventory-list > header,
+    .total-bulk {
+        @include button;
+        align-items: center;
+        background-color: var(--alt);
+        color: var(--color-text-light-0);
+        display: flex;
+        font-family: var(--sans-serif);
+        font-size: var(--font-size-10);
+        justify-content: end;
+        letter-spacing: 0.05em;
+        line-height: 1;
+        margin-top: 6px;
+        padding: 0.25rem;
+        text-rendering: optimizeLegibility;
+        text-transform: uppercase;
+        width: 100%;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: var(--font-size-14);
+            margin: 2px 0;
+            text-shadow: 0 0 2px rgba(black, 0.75);
+            text-transform: capitalize;
+
+            &:hover {
+                color: var(--color-text-light-0);
+            }
+        }
+
+        .item-invested-total {
+            flex: none;
+            margin-right: 1em;
+        }
+
+        .item-controls {
+            gap: 0.25rem;
+        }
+
+        .overinvested {
+            color: orange;
+            text-shadow: 1px 1px 0px black;
+        }
+    }
+
+    .inventory-list > header {
+        .item-name {
+            padding-left: 0.25rem;
+        }
+
+        > span {
+            justify-content: center;
+        }
+    }
+
+    ul.items {
+        @include p-reset;
+        border-top: none;
+        border: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+
+        > li {
+            width: 100%;
+
+            &:nth-of-type(even) {
+                background-color: rgba($alt-color, 0.1);
+            }
+
+            &:last-child .item-summary {
+                border-bottom: none;
+            }
+
+            &.temporary-item {
+                background-color: #0005ff1d;
+            }
+
+            > .data {
+                display: flex;
+                flex-wrap: wrap;
+                font-size: var(--font-size-12);
+                justify-content: flex-start;
+                width: 100%;
+
+                &.drop-highlight {
+                    background: #b7f8c7;
+                }
+
+                .item-name {
+                    h3,
+                    h4 {
+                        font-weight: 500;
+                        line-height: var(--font-size-12);
+                        margin: auto auto auto 0;
+                        padding: 2px;
+                        word-break: break-word;
+
+                        a:hover {
+                            text-shadow: none;
+                        }
+
+                        &:hover {
+                            color: var(--primary);
+                        }
+
+                        i.fa-info-circle {
+                            color: var(--text-dark);
+
+                            &:hover {
+                                color: var(--text-dark);
+                            }
+                        }
+                    }
+
+                    h4:not(:hover) {
+                        &.rarity-uncommon {
+                            border-color: var(--color-rarity-uncommon);
+                            color: var(--color-rarity-uncommon);
+                        }
+
+                        &.rarity-rare {
+                            border-color: var(--color-rarity-rare);
+                            color: var(--color-rarity-rare);
+                        }
+
+                        &.rarity-unique {
+                            border-color: var(--color-rarity-unique);
+                            color: var(--color-rarity-unique);
+                        }
+                    }
+
+                    .size {
+                        font-size: 0.8em;
+                        color: var(--alt);
+                        margin: 0;
+                    }
+
+                    .uses {
+                        color: var(--color-text-dark-3);
+                        margin-left: auto;
+                    }
+                }
+
+                .price,
+                .quantity,
+                .bulk,
+                .item-controls {
+                    border-left: 1px solid var(--alt);
+                }
+
+                .price,
+                .bulk {
+                    justify-content: center;
+                    padding-right: 0.2em;
+                }
+
+                .quantity {
+                    justify-content: space-around;
+
+                    .decrease,
+                    .increase {
+                        @include flex-center;
+                        font-family: var(--sans-serif-monospace);
+                        height: 100%;
+                        text-align: center;
+                        width: 18px;
+                    }
+                }
+
+                .item-controls {
+                    color: var(--text-dark);
+                    font-size: var(--font-size-13);
+
+                    > a {
+                        &.toggle-invested,
+                        &.item-carry-type {
+                            color: rgba(black, 0.5);
+
+                            &.active {
+                                color: var(--secondary);
+                            }
+                        }
+
+                        &.item-carry-type {
+                            text-align: right;
+                        }
+
+                        // Hands-held with interior number
+                        .fa-stack {
+                            margin: -3px -2px 0;
+
+                            .fa-1,
+                            .fa-2 {
+                                left: 1px;
+                                position: relative;
+                            }
+                        }
+
+                        &.notify {
+                            @include requires-user-attention;
+                        }
+                    }
+                }
+            }
+
+            &.drag-preview {
+                box-shadow: 0 0 6px inset var(--color-shadow-highlight);
+            }
+
+            // The gap left by an item being dragged to a new position
+            &.drag-gap {
+                visibility: hidden;
+            }
+
+            .item-summary {
+                flex: 100%;
+                padding: 4px 8px 8px;
+                border-top: 1px solid var(--alt);
+                border-bottom: 1px solid var(--alt);
+                background: rgba(white, 0.333);
+            }
+
+            .container-metadata {
+                flex-basis: 100%;
+
+                .capacity {
+                    @include micro;
+                    position: relative;
+                    background-color: rgba(black, 0.75);
+                    box-shadow: inset 0 0 4px black;
+                    color: var(--color-text-light-0);
+                    display: flex;
+                    width: 100%;
+
+                    .bar {
+                        background-color: var(--secondary);
+                        border-radius: 0 2px 2px 0;
+                        box-shadow:
+                            inset 0 0 0 1px rgba(black, 0.5),
+                            inset 0 0 0 2px rgba(white, 0.1);
+                        padding: 8px 0;
+                    }
+
+                    .label {
+                        position: absolute;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                        padding: 2px;
+                    }
+                    &.over-limit .container-capacity-bar {
+                        background-color: var(--primary);
+                    }
+                }
+            }
+
+            ul.container-contents {
+                padding-left: 10px;
+                border-left: none;
+                border-right: none;
+
+                > li {
+                    position: relative;
+
+                    &:nth-of-type(even) {
+                        background-color: rgba($alt-color, 0.1);
+                    }
+
+                    &:first-of-type .item::before {
+                        height: 50%;
+                        top: 0;
+                    }
+
+                    &::before,
+                    &::after {
+                        position: absolute;
+                        border-left: 1px solid var(--alt);
+                        top: 0;
+                        height: 50%;
+                        left: -5px;
+                        width: 5px;
+                        content: "";
+                    }
+
+                    &::before {
+                        border-bottom: 1px solid var(--alt);
+                        top: 0;
+                    }
+
+                    &::after {
+                        top: 50%;
+                    }
+
+                    .item-summary {
+                        border-left: 1px solid var(--alt);
+                    }
+                }
+
+                // Add a connection line for nested containers
+                .container-metadata {
+                    position: relative;
+                    &::before {
+                        position: absolute;
+                        border-left: 1px solid var(--alt);
+                        top: 0;
+                        height: 100%;
+                        left: -5px;
+                        width: 0px;
+                        content: "";
+                    }
+                }
+
+                // Ensure the final item's bracket ends in an L shape
+                > li:last-of-type {
+                    .item::after,
+                    .container-metadata::before {
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+
+    // Used in creature sheets
+    .encumbrance {
+        align-items: center;
+        display: grid;
+        grid: "img bar overflow" min-content / 24px 1fr;
+        margin-top: auto;
+
+        img {
+            @include frame-icon;
+            border-radius: 0;
+            grid-area: img;
+            position: relative;
+            z-index: 4;
+        }
+
+        .encumbrance-bar {
+            position: relative;
+            z-index: 2;
+            grid-area: bar;
+            height: 16px;
+            width: 100%;
+            background-color: var(--secondary);
+            box-shadow:
+                inset 0 0 0 1px rgba(black, 0.5),
+                inset 0 0 0 2px rgba(white, 0.2);
+        }
+        .encumbrance-label {
+            position: relative;
+            z-index: 3;
+            grid-area: bar;
+            color: var(--text-light);
+            font-family: var(--serif);
+            font-size: var(--font-size-12);
+            font-weight: 500;
+            padding: 0 8px;
+            padding-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-shadow: 0 0 2px black;
+        }
+        .encumbrance-light-bulk-overflow {
+            position: relative;
+            z-index: 3;
+            grid-area: overflow;
+            color: var(--text-dark);
+            font-family: var(--serif);
+            font-size: var(--font-size-12);
+            font-weight: 500;
+            padding: 0 8px;
+            padding-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-shadow: 0 0 2px white;
+        }
+        .bar-bg {
+            position: relative;
+            z-index: 1;
+            grid-area: bar;
+            width: 100%;
+            height: 16px;
+            background-color: rgba(black, 0.5);
+            border-radius: 0 2px 2px 0;
+            box-shadow: inset 0 0 4px rgba(black, 0.75);
+        }
+
+        &.over-limit {
+            .encumbrance-bar {
+                background-color: var(--primary) !important;
+            }
+        }
+    }
+
+    // Used in party and loot sheets
+    .total-bulk {
+        font-weight: 500;
+        gap: 0.25rem;
+        height: 1.5rem;
+        padding-left: 0;
+        border-radius: 0;
+        justify-content: start;
+        margin-bottom: 0.7rem;
+
+        img {
+            @include frame-icon;
+            height: 1.5rem;
+            width: 1.5rem;
+            z-index: 1;
+        }
+    }
+}

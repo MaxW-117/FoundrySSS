@@ -1,0 +1,16 @@
+.tab.inventory.active {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+    overflow-y: hidden;
+    padding-bottom: 1.25rem;
+
+    .inventory-section {
+        max-height: calc(100% - 1rem);
+
+        .coinage .wealth,
+        header {
+            background: var(--primary-background);
+        }
+    }
+}

@@ -1,0 +1,322 @@
+&.character {
+    select {
+        width: calc(100% - 6px);
+        background-color: var(--alt);
+        border: 1px solid darken($alt-color, 8);
+
+        &:disabled {
+            cursor: initial;
+        }
+    }
+
+    hr {
+        margin: 10px 6px 10px 0;
+    }
+
+    .character-details {
+        align-items: start;
+        display: grid;
+        grid:
+            "img details" auto
+            / 7.5rem minmax(0, 1fr);
+        margin-top: 0.25rem;
+
+        .image-container {
+            display: flex;
+            grid-area: img;
+            flex: 0 0 8rem;
+            z-index: 3;
+            position: relative;
+            max-height: 10.5rem;
+
+            display: flex;
+            flex-direction: column;
+
+            .actor-image {
+                @include brown-border;
+                border-radius: 0;
+                max-height: 10.5rem;
+                object-fit: cover;
+                object-position: top;
+                width: 100%;
+            }
+        }
+
+        .abcd {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 50%);
+            grid-row-gap: 0.5rem;
+            justify-content: start;
+            padding-left: 0.75rem;
+
+            .detail {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2px;
+                .details-label {
+                    flex-basis: 100%;
+                }
+
+                h3 {
+                    align-items: center;
+                    background-color: rgba($text-dark-color, 0.1);
+                    border: none;
+                    color: var(--text-dark);
+                    display: flex;
+                    font: 700 var(--font-size-14) / 1em var(--body-serif);
+                    margin: 0;
+                    padding: 0.5em 0.25em;
+                    position: relative;
+                    width: calc(100% - 0.5em);
+
+                    &.has-emblem {
+                        border-radius: 0 0.75rem 0.75rem 0;
+                    }
+
+                    span.value {
+                        flex-basis: 100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+
+                    .emblem {
+                        position: relative;
+                        flex: 0 0 1.75rem;
+                        margin-left: 0.25rem;
+                        margin-right: -0.3755rem;
+                        img {
+                            position: absolute;
+                            @include brown-border;
+                            top: -0.875rem;
+                            left: 0;
+                            border-radius: 50%;
+                            height: 1.75rem;
+                            width: 1.75rem;
+                        }
+                    }
+                }
+            }
+
+            .traits {
+                grid-column: span 2;
+                margin: -4px 0 0 -2px;
+                padding: 0;
+            }
+
+            .deity {
+                align-items: center;
+
+                .input {
+                    h3 {
+                        min-width: 11em;
+                    }
+                }
+            }
+        }
+
+        .detail-item-control {
+            cursor: pointer;
+
+            > i:hover {
+                text-shadow: 0 0 8px var(--color-shadow-primary);
+            }
+
+            #context-menu {
+                left: -85px;
+                min-width: 105px;
+                padding: 0;
+                text-align: left;
+
+                .context-item {
+                    font-family: var(--font-primary);
+                    font-weight: normal;
+                    min-width: 105px;
+
+                    i {
+                        position: static;
+                        float: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .character-background {
+        display: flex;
+        flex-wrap: wrap;
+
+        label {
+            align-items: start;
+            display: flex;
+            flex: 1 0 0;
+            flex-direction: column;
+            justify-content: start;
+            margin-bottom: 8px;
+            span {
+                width: 100%;
+            }
+        }
+    }
+
+    ul.languages {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        margin-top: 0;
+
+        > li.over-limit {
+            --tag-color: var(--color-pf-primary);
+        }
+
+        > li.unallocated {
+            --tag-color: var(--color-pf-alternate);
+            font-style: italic;
+        }
+    }
+
+    .language-details {
+        padding: 0 0.25em;
+    }
+
+    .character-speeds {
+        display: flex;
+        margin-bottom: 0.5rem;
+        .speed {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            flex: 1 0 0;
+            text-align: center;
+
+            & + .speed {
+                border-left: 1px solid #d3ccbc;
+            }
+
+            .label {
+                color: var(--color-pf-alternate-dark);
+                font: 500 var(--font-size-14) var(--sans-serif);
+                font-variant: small-caps;
+                position: relative;
+            }
+
+            .value {
+                align-items: baseline;
+                color: var(--color-text-dark-2);
+                display: flex;
+                font: 500 var(--font-size-18) / 1 var(--serif);
+                gap: 0.25ch;
+                padding: 0.25rem;
+                padding-bottom: 0;
+                position: relative;
+
+                i {
+                    color: var(--color-pf-alternate-dark);
+                    font-size: var(--font-size-13);
+                    opacity: 0.85;
+                }
+
+                .unit {
+                    font-size: var(--font-size-14);
+                }
+
+                &.rollable {
+                    svg {
+                        width: 1rem;
+                        height: 1rem;
+                        path {
+                            fill: var(--color-text-dark-2);
+                        }
+                    }
+                    &:hover svg {
+                        @include die-spin;
+                    }
+                }
+            }
+        }
+    }
+
+    .attributes {
+        @include p-reset;
+        display: grid;
+        gap: 12px;
+        grid: 1fr / repeat(6, 1fr);
+        justify-content: center;
+        list-style: none;
+
+        .attribute {
+            display: grid;
+            grid:
+                "abbrev" auto
+                "mod" 1fr
+                "label" auto
+                / 1fr;
+            column-gap: 10px;
+            align-items: center;
+            &:focus-within {
+                .abbreviation {
+                    filter: opacity(1);
+                }
+            }
+
+            &.key {
+                .abbreviation,
+                .modifier {
+                    color: var(--secondary);
+                }
+            }
+
+            .abbreviation {
+                @include p-reset;
+                border: none;
+                color: var(--primary);
+                font: 400 22px var(--serif-condensed);
+                grid-area: abbrev;
+                position: relative;
+                text-align: center;
+                text-transform: capitalize;
+
+                i.key,
+                i.apex {
+                    bottom: 4px;
+                    position: absolute;
+                    font-size: var(--font-size-12);
+                }
+
+                i.key {
+                    left: 2px;
+                }
+
+                i.apex {
+                    right: 2px;
+
+                    &.unselected:not(:hover) {
+                        opacity: 0.75;
+                    }
+                }
+            }
+
+            h3.modifier {
+                @include flex-center;
+                @include frame-elegant;
+                grid-area: mod;
+                font-size: var(--font-size-24);
+                font-family: var(--serif);
+                font-weight: 700;
+                height: 46px;
+                margin: 0;
+                padding-right: 4px;
+            }
+
+            .label {
+                color: rgba(68, 55, 48, 1);
+                grid-area: label;
+                margin: 0;
+                opacity: 0.4;
+                padding: 2px;
+                text-align: center;
+            }
+        }
+    }
+}

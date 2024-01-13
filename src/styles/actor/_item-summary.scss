@@ -1,0 +1,36 @@
+.item-summary {
+    @include journal-styling;
+    line-height: normal;
+    overflow: hidden;
+    padding: var(--space-4);
+
+    .tags {
+        padding: 0;
+
+        &.has-properties {
+            row-gap: var(--space-3);
+        }
+
+        .tag.property {
+            margin-left: var(--space-2);
+            border-width: var(--space-1);
+            height: 1.25em;
+        }
+
+        .tag:not(.property) + .tag.property {
+            margin-left: var(--space-4);
+        }
+    }
+
+    .button-group {
+        align-items: start;
+        display: flex;
+        gap: var(--space-6);
+        justify-content: center;
+        flex-direction: column;
+
+        button {
+            width: 100%;
+        }
+    }
+}
