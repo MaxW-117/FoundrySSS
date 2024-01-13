@@ -1,5 +1,5 @@
 {
-    "name": "foundry-pf2e",
+    "name": "foundry-sss",
     "version": "5.12.6",
     "description": "",
     "private": true,
@@ -23,7 +23,7 @@
         "lint:json": "eslint ./static --ext .json --no-eslintrc --plugin json --rule \"json/*: error\" --rule \"linebreak-style: error\"",
         "lint:fix": "eslint ./build ./src ./tests ./types --ext .ts --fix && prettier --write src/styles"
     },
-    "author": "The PF2e System Developers",
+    "author": "maxw",
     "license": "Apache-2.0",
     "devDependencies": {
         "@pixi/graphics-smooth": "^1.1.0",

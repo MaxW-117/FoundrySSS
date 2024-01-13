@@ -1,5 +1,5 @@
 {
-    "name": "PF2 System for FoundryVTT",
+    "name": "SSS System for FoundryVTT",
     "inputFiles": [
         "./src/module"
     ],
